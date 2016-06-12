@@ -1,6 +1,7 @@
 import cherrypy
 import os
 import json
+import socket
 
 from jinja2 import Environment, FileSystemLoader
 
@@ -56,7 +57,7 @@ class Hausaufgaben(object):
             db.write(json.dumps(db_json))
     delete.exposed = True
 
-cherrypy.config.update({'server.socket_port': 4594})
+cherrypy.config.update({'server.socket_host': socket.gethostbyname(socket.gethostname()), 'server.socket_port': 4594})
 ##conf = {
 ##    "/": {
 ##        'tools.staticdir.on': True,
