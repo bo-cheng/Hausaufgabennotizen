@@ -1,0 +1,40 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="de" lang="de">
+
+<head>
+    <title>Hausaufgabennotizen</title>
+
+    <meta http-equiv="content-type" content="text/html; charset=ISO-8859-1" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <meta name="keywords" content="" />
+    <meta name="generator" content="Webocton - Scriptly (www.scriptly.de)" />
+
+    <link href="style.css" type="text/css" rel="stylesheet" />
+    
+    <script src="jquery"></script>
+    <!--<script language="javascript" type="text/javascript" src="main.js"></script>-->
+    <script>
+    $(document).ready(function() {
+        $("input[type='checkbox']").change(function() {
+            if ($(this).is(':checked')){
+                console.log("Ja");
+                $.post("/delete", {hausaufgabe: $(this).data('fulltext')}).done(function() {
+                    location.reload();
+                })      
+            }
+        })
+    });
+    </script>
+</head>                           
+
+<body>
+    <form name="form" method="post" action="/add">
+        <input name="hausaufgabe" type="text"/>
+        <input type="submit" value="+ Add"/>
+    </form>
+    {% for hausaufgabe in db_json %}
+    <p><input data-fulltext="{{hausaufgabe}}" type="checkbox"/>{{hausaufgabe}}</p>
+    {% endfor %}
+</body>
+</html>
